@@ -43,24 +43,21 @@ class MarketDataService:
         cutoff = today - pd.Timedelta(days=lookback_days + 5)
         if not stored.empty:
             stored = stored[stored.index >= cutoff]
-        fetched = pd.DataFrame()
-        needs_initial = stored.empty
+        span = "5year" if lookback_days > 365 else "year"
         latest_ts = stored.index.max() if not stored.empty else None
+        refresh_needed = stored.empty
         if latest_ts is not None:
             latest_ts = pd.Timestamp(latest_ts)
-        fresh_cutoff = today - pd.Timedelta(days=1)
-        if needs_initial:
-            fetched = self._fetch_daily_span(ticker, span="year")
-        elif latest_ts is None or latest_ts < fresh_cutoff:
-            gap_days = int((today - latest_ts.normalize()).days) if latest_ts is not None else lookback_days
-            span = self._span_for_gap(gap_days)
+            if latest_ts < today - pd.Timedelta(days=1):
+                refresh_needed = True
+        if refresh_needed:
             fetched = self._fetch_daily_span(ticker, span=span)
-        if not fetched.empty:
-            stored = pd.concat([stored, fetched])
+            if not fetched.empty:
+                stored = pd.concat([stored, fetched])
+        if not stored.empty:
             stored = stored[~stored.index.duplicated(keep="last")]
             stored = stored.sort_index()
-        stored = stored[stored.index >= cutoff]
-        if not stored.empty:
+            stored = stored[stored.index >= cutoff]
             self._history_store.save(ticker, stored)
         return stored.tail(lookback_days)
 
@@ -69,20 +66,6 @@ class MarketDataService:
             frame = self.historical_dataframe(ticker, span=span, interval="day")
         except ValueError:
             frame = pd.DataFrame()
-        if frame.empty:
+        if frame.empty or "begins_at" not in frame.columns:
             return frame
         return frame[~frame.index.duplicated(keep="last")].sort_index()
-
-    @staticmethod
-    def _span_for_gap(gap_days: int) -> str:
-        if gap_days > 365:
-            return "5year"
-        if gap_days > 250:
-            return "year"
-        if gap_days > 90:
-            return "3month"
-        if gap_days > 30:
-            return "month"
-        if gap_days > 7:
-            return "week"
-        return "day"
