@@ -14,6 +14,7 @@ __pycache__/
 
 # Local data cache
 data/history/
+data/trades/
 
 # Log files
 *.log

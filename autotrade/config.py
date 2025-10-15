@@ -69,5 +69,5 @@ class BotConfig:
             max_total_exposure=15_000.0,
             params=DualMAMeanReversionParams(),
         )
-        window = TradingWindow(market_open=time(9, 30), market_close=time(16, 0))
+        window = TradingWindow(market_open=time(9, 30), market_close=time(23, 59))
         return cls(strategy=strategy, trading_window=window, polling_interval_seconds=60)

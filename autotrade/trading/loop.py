@@ -13,6 +13,7 @@ from autotrade.config import BotConfig
 from autotrade.data.market import MarketDataService
 from autotrade.strategy import DualMAMeanReversionStrategy, Signal
 from autotrade.trading.execution import ExecutionEngine
+from autotrade.trading.trade_logger import TradeLogger
 
 _LOG = logging.getLogger(__name__)
 
@@ -40,7 +41,8 @@ def graceful_shutdown() -> Iterator[Callable[[], bool]]:
 def run_trading_loop(client: RobinhoodClient, config: BotConfig, *, paper_trading: bool = False) -> None:
     data_service = MarketDataService(client)
     strategy = DualMAMeanReversionStrategy(config, data_service)
-    execution = ExecutionEngine(client, config, paper_trading=paper_trading)
+    trade_logger = TradeLogger()
+    execution = ExecutionEngine(client, config, paper_trading=paper_trading, trade_logger=trade_logger)
     polling_seconds = config.polling_interval_seconds
     mode = "paper" if paper_trading else "live"
     _LOG.info("Starting %s trading loop for %s", mode, config.strategy.tickers)

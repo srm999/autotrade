@@ -53,6 +53,11 @@ requirements.txt   # Python dependencies
 - On the first run it backfills the last year from Robinhood; subsequent sessions append new sessions, keeping calculations fast and reproducible.
 - Delete the CSV if you need a fresh pull; it will be regenerated automatically.
 
+## Trade logging
+- Every submitted order (paper or live) is appended to `data/trades/<YYYY-MM-DD>.csv` with side, size, price, reason, and running realized PnL.
+- The logger also tracks a simple average-cost position per ticker to estimate profit and loss on each exit.
+- Remove or archive the daily files if you want a clean slate; they are ignored by git via `.gitignore`.
+
 ## Next steps
 - Backtest the regime/mean-reversion logic and capture baseline performance metrics.
 - Add richer risk controls (daily loss caps, number of trades per session) and execution throttling.
