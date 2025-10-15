@@ -99,9 +99,7 @@ class DualMAMeanReversionStrategy:
             self._params.std_lookback,
         ) + 50
         for ticker in self._config.strategy.tickers:
-            frame = self._data_service.historical_dataframe(
-                ticker, span=self._span_for_lookback(lookback), interval="day"
-            )
+            frame = self._data_service.daily_history(ticker, lookback_days=lookback)
             if frame.empty:
                 self._history[ticker] = pd.DataFrame()
                 continue
@@ -247,11 +245,3 @@ class DualMAMeanReversionStrategy:
 
     def _clear_position(self, ticker: str) -> None:
         self._position[ticker].reset()
-
-    @staticmethod
-    def _span_for_lookback(lookback: int) -> str:
-        if lookback <= 365:
-            return "year"
-        if lookback <= 365 * 5:
-            return "5year"
-        return "all"

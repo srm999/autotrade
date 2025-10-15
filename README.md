@@ -11,7 +11,7 @@
 ```
 autotrade/
   broker/          # Robinhood client wrapper
-  data/            # Market data helpers
+  data/            # Market data helpers & local history cache
   strategy/        # Strategy abstractions & dual MA mean-reversion strategy
   trading/         # Execution and trading loop orchestration
 main.py            # CLI entry point
@@ -47,6 +47,11 @@ requirements.txt   # Python dependencies
 - Default deployment trades only `TQQQ` and `SQQQ`, using a 50/250-day moving-average regime filter with z-score mean reversion entries.
 - Tweak exposure limits or indicator parameters in `BotConfig.default()` inside `autotrade/config.py`.
 - Extend functionality by implementing additional classes that satisfy the `Strategy` protocol in `autotrade/strategy/base.py`, then instantiate them in `autotrade/trading/loop.py`.
+
+## Historical data cache
+- The bot persists roughly one year of daily candles per ticker under `data/history/<TICKER>.csv` using `HistoryStore`.
+- On the first run it backfills the last year from Robinhood; subsequent sessions append new sessions, keeping calculations fast and reproducible.
+- Delete the CSV if you need a fresh pull; it will be regenerated automatically.
 
 ## Next steps
 - Backtest the regime/mean-reversion logic and capture baseline performance metrics.
