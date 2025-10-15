@@ -1,0 +1,19 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# OS and editor cruft
+.DS_Store
+*.swp
+*.swo
+
+# Local data cache
+data/history/
+
+# Log files
+*.log
