@@ -3,4 +3,3 @@ pandas>=2.2.0
 selenium>=4.17.0
 yfinance>=0.2.30
 numpy>=1.26.0
-streamlit>=1.31.0

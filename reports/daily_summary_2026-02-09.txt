@@ -1,0 +1,59 @@
+================================================================================
+AUTOTRADE - DAILY TRADING SUMMARY
+Date: Monday, February 09, 2026
+================================================================================
+
+SESSION INFO
+--------------------------------------------------------------------------------
+Session started: 21:05:54
+Report generated: 21:05:56
+
+MARKET REGIME CHANGES
+--------------------------------------------------------------------------------
+[21:05:53] BULL Strong Trend (Medium Vol)
+           Active strategies: Trend Following, Momentum Breakout
+[21:05:56] BULL Weak Trend (Low Vol)
+           Active strategies: Trend Following
+
+TRADING ACTIVITY
+--------------------------------------------------------------------------------
+
+AAPL:
+  [21:05:54] BUY 50 shares @ $175.25 (Momentum Breakout)
+  [21:05:55] SELL 50 shares @ $182.50 (Momentum Breakout) - P&L: +$362.50
+
+NVDA:
+  [21:05:55] BUY 25 shares @ $485.00 (Trend Following)
+
+Total trades: 3 (2 buys, 1 sells)
+Total P&L: +$362.50
+
+SIGNALS GENERATED
+--------------------------------------------------------------------------------
+Total signals: 3
+Executed: 2
+Ignored: 1
+
+
+Momentum Breakout:
+  [21:05:54] AAPL - ENTRY (confidence: 85%) - ✓ EXECUTED
+  [21:05:55] AAPL - EXIT (confidence: 75%) - ✓ EXECUTED
+
+Mean Reversion:
+  [21:05:54] MSFT - ENTRY (confidence: 45%) - ✗ Ignored
+
+PERFORMANCE SUMMARY
+--------------------------------------------------------------------------------
+Total trades (all-time): 3
+Completed trades: 1
+Win rate: 100.0%
+Total P&L (all-time): +$362.50
+Average P&L per trade: +$362.50
+
+ERRORS
+--------------------------------------------------------------------------------
+[21:05:56] ValueError (execute_trade): Insufficient funds for trade
+
+================================================================================
+End of Report
+================================================================================

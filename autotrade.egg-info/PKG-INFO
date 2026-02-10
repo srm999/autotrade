@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: autotrade
+Version: 0.1.0
+Summary: Automated trading bot for daily/swing trading strategies
+Author: Your Name
+Requires-Python: >=3.11
+Requires-Dist: schwab-py>=0.0.0a25
+Requires-Dist: pandas>=2.2.0
+Requires-Dist: selenium>=4.17.0
+Requires-Dist: yfinance>=0.2.30
+Requires-Dist: numpy>=1.26.0
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

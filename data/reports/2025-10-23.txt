@@ -1,0 +1,9 @@
+Daily Summary 2025-10-23 (reason: market_closed)
+- Session window: start 2025-10-23T18:27:54, end 2025-10-23T18:27:55
+- Regime: unavailable
+- TQQQ: no intraday quotes captured
+- SQQQ: no intraday quotes captured
+- Signals: none
+- Flatten events: none
+- Portfolio balances: cash start $548.35, end $548.35; market value start $0.00, end $0.00; cash withdrawable $236.66
+- Errors: none

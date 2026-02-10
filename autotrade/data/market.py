@@ -6,7 +6,7 @@ from datetime import datetime
 
 import pandas as pd
 
-from autotrade.broker.robinhood_client import RobinhoodClient
+from autotrade.broker import SchwabClient
 from autotrade.data.history_store import HistoryStore
 
 
@@ -17,8 +17,21 @@ class Quote:
     as_of: datetime
 
 
+@dataclass
+class MarketData:
+    """Market data container for OHLCV data."""
+
+    ticker: str
+    date: list[datetime]
+    open_price: list[float]
+    high_price: list[float]
+    low_price: list[float]
+    close_price: list[float]
+    volume: list[int]
+
+
 class MarketDataService:
-    def __init__(self, client: RobinhoodClient, *, history_store: HistoryStore | None = None) -> None:
+    def __init__(self, client: SchwabClient, *, history_store: HistoryStore | None = None) -> None:
         self._client = client
         self._history_store = history_store or HistoryStore()
 

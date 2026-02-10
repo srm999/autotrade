@@ -2,10 +2,20 @@
 from __future__ import annotations
 
 import csv
-from dataclasses import dataclass
+from dataclasses import dataclass as _dataclass
 from datetime import datetime, date
 from pathlib import Path
 from typing import Any
+from sys import version_info
+
+
+if version_info < (3, 10):
+    # Python <3.10 does not support the ``slots`` argument on dataclasses.
+    def dataclass(*args, **kwargs):
+        kwargs.pop("slots", None)
+        return _dataclass(*args, **kwargs)
+else:
+    dataclass = _dataclass
 
 
 @dataclass(slots=True)
@@ -81,5 +91,8 @@ class TradeLogger:
             return ""
         try:
             return "; ".join(f"{key}={value}" for key, value in metadata.items())
-        except Exception:
+        except (AttributeError, TypeError, ValueError) as exc:
+            # Fallback if metadata is malformed or contains non-serializable values
+            import logging
+            logging.getLogger(__name__).debug("Failed to format metadata: %s", exc)
             return str(metadata)
